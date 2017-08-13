@@ -1,0 +1,252 @@
+<section ng-controller="TasksController as mycont" ng-init="findBoard()">
+<div class="page-header">
+    <h1>Task Board</h1>
+
+
+    <div class="form-group float-right">
+        <label for="sprint_id">Sprints</label>
+
+
+        <select class="form-control" ng-change="sprintChange(sprint_id)" name="sprint_id" ng-model="sprint_id"
+                id="sprint_id" ng-options="c.id as c.label for c in sprintsdata track by c.id" required>
+            <option value="">- Select Sprint -</option>
+        </select>
+
+
+    </div>
+
+
+</div>
+
+
+<style>
+    @import url(http://fonts.googleapis.com/css?family=Satisfy);
+
+    .boardCols {
+        width: 100%;
+        margin-bottom: 20px;
+        overflow: hidden;
+        border-top: 1px solid #ccc;
+        position: absolute;
+        border: 1px solid black;
+    }
+
+    .boardCols li {
+        /* line-height:1.5em; */
+        border-bottom: 1px solid #ccc;
+        float: left;
+        display: inline;
+        width: 33%;
+        min-height: 500px;
+        position: relative;
+    }
+
+    .thumbnail {
+        min-height: 280px
+    }
+
+    .btn-droppable {
+        width: 180px;
+        height: 30px;
+        padding-left: 4px;
+    }
+
+    .btn-draggable {
+        width: 175px;
+        margin-bottom: 8px
+    }
+
+    .dropArea {
+        min-height: 750px
+    }
+
+    .quote-container {
+        margin-top: 50px;
+        position: relative;
+    }
+
+    .note {
+        color: #333;
+        position: relative;
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Satisfy;
+        font-size: 18px;
+        box-shadow: 0 10px 10px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .note .author {
+        display: block;
+        margin: 40px 0 0 0;
+        text-align: right;
+    }
+
+    .yellow {
+        background: #eae672;
+        -webkit-transform: rotate(2deg);
+        -moz-transform: rotate(2deg);
+        -o-transform: rotate(2deg);
+        -ms-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    .pin {
+        background-color: #aaa;
+        display: block;
+        height: 32px;
+        width: 2px;
+        position: absolute;
+        left: 50%;
+        top: -16px;
+        z-index: 1;
+    }
+
+    .pin:after {
+        background-color: #A31;
+        background-image: radial-gradient(25% 25%, circle, hsla(0, 0%, 100%, .3), hsla(0, 0%, 0%, .3));
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, .1), inset 3px 3px 3px hsla(0, 0%, 100%, .2), inset -3px -3px 3px hsla(0, 0%, 0%, .2), 23px 20px 3px hsla(0, 0%, 0%, .15);
+        content: '';
+        height: 12px;
+        left: -5px;
+        position: absolute;
+        top: -10px;
+        width: 12px;
+    }
+
+    .pin:before {
+        background-color: hsla(0, 0%, 0%, 0.1);
+        box-shadow: 0 0 .25em hsla(0, 0%, 0%, .1);
+        content: '';
+
+        height: 24px;
+        width: 2px;
+        left: 0;
+        position: absolute;
+        top: 8px;
+
+        transform: rotate(57.5deg);
+        -moz-transform: rotate(57.5deg);
+        -webkit-transform: rotate(57.5deg);
+        -o-transform: rotate(57.5deg);
+        -ms-transform: rotate(57.5deg);
+
+        transform-origin: 50% 100%;
+        -moz-transform-origin: 50% 100%;
+        -webkit-transform-origin: 50% 100%;
+        -ms-transform-origin: 50% 100%;
+        -o-transform-origin: 50% 100%;
+    }
+
+    blockquote {
+        border-left: none;
+    }
+</style>
+
+
+<div class='col-md-12 contentWrapper ng-cloak'>
+    <div class='content'>
+        <div class="row-fluid">
+            <ul class="thumbnails boardCols">
+                <li class="span3 boardCol">
+                    <h1 style="text-align: center;    font-family: Satisfy;">To Do</h1>
+
+                    <div class="thumbnail dropArea" data-drop="true" ng-model='list1' data-jqyoui-options=""
+                         jqyoui-droppable="{ onDrop:'dropCallback1'}">
+
+                        <div class="caption">
+                            <!--
+                                                            <div class="btn btn-info btn-draggable" ng-repeat="item in list1" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{index: {{$index}},animate:true , onStart:'startCallback(item, $index)'}" >{{item.title}}</div>
+                            -->
+                            <div class="quote-container" ng-repeat="item in list1" ng-show="item.title"
+                                 data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1"
+                                 jqyoui-draggable="{index: {{$index}},animate:true , onStart:'startCallback(item, $index)'}">
+                                <i class="pin"></i>
+                                <blockquote class="note yellow">
+                                    <a target="_blank" style="float: right;margin-top: -19px;margin-right: -20px;"
+                                       class="btn btn-primary" href="/tasks/{{item.taskId}}/edit">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                    {{item.title}}
+                                    <cite class="author">Albert Einstein</cite>
+                                </blockquote>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </li>
+                <li class="span3 boardCol">
+                    <h1 style="text-align: center;    font-family: Satisfy;">In Progress</h1>
+
+                    <div class="thumbnail dropArea " data-drop="true" ng-model='list2'
+                         data-jqyoui-options="{accept:'.quote-container:not([ng-model=list2])'}"
+                         jqyoui-droppable="{ onDrop:'dropCallback2'}">
+                        <div class="caption">
+                            <!--
+                            <div class="btn btn-info btn-draggable" ng-repeat="item in list2" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list2" jqyoui-draggable="{index: {{$index}},animate:true , onStart:'startCallback(item, $index)'}" >{{item.title}}</div>
+                            -->
+                            <div class="quote-container" ng-repeat="item in list2" ng-show="item.title"
+                                 data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list2"
+                                 jqyoui-draggable="{index: {{$index}},animate:true , onStart:'startCallback(item, $index)'}">
+                                <i class="pin"></i>
+
+                                <blockquote class="note yellow">
+                                    <a target="_blank" style="float: right;margin-top: -19px;margin-right: -20px;"
+                                       class="btn btn-primary" href="/tasks/{{item.taskId}}/edit">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+
+                                    {{item.title}}
+                                    <cite class="author">Albert Einstein</cite>
+                                </blockquote>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </li>
+                <li class="span3 boardCol">
+                    <h1 style="text-align: center;    font-family: Satisfy;">Done</h1>
+
+                    <div class="thumbnail dropArea" data-drop="true" ng-model='list3'
+                         data-jqyoui-options="{accept:'.quote-container:not([ng-model=list3])'}"
+                         jqyoui-droppable="{ onDrop:'dropCallback3'}">
+                        <div class="caption">
+                            <!--  <div class="btn btn-info btn-draggable" ng-repeat="item in list3" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list3" jqyoui-draggable="{index: {{$index}},animate:true , onStart:'startCallback(item, $index)'}" >{{item.title}}</div>
+                        <div class="quote-container" ng-repeat="item in list3" ng-show="item.title" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list3" jqyoui-draggable="{index: {{$index}},animate:true , onStart:'startCallback(item, $index)'}">
+
+                        -->
+                            <div class="quote-container" ng-repeat="item in list3" ng-show="item.title"
+                                 ng-model="list3">
+                                <i class="pin"></i>
+                                <blockquote class="note yellow">
+                                    <a target="_blank" style="float: right;margin-top: -19px;margin-right: -20px;"
+                                       class="btn btn-primary" href="/tasks/{{item.taskId}}/edit">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </a>
+                                    {{item.title}}
+                                    <cite class="author">Albert Einstein</cite>
+                                </blockquote>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!--<div class="navbar-inner">
+    <div class="container form-inline" style="text-align: center;">
+        <div class="btn btn-droppable" ng-repeat="item in list5" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: {{$index}}}">
+            <div class="btn btn-info btn-draggable" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.title">{{item.title}}</div>
+        </div>
+    </div>
+</div>
+-->
+
+
+</section>

@@ -1,0 +1,60 @@
+<section ng-controller="TasksController" ng-init="find()">
+    <div class="page-header">
+        <h1>Task Board</h1>
+    </div>
+
+    <tr ng-repeat="task in tasks">
+        <td>
+            <div class="list-group" ng-drag="true" ng-drag-data="{obj}" ng-drag-success="onDragComplete($data,$event)">
+                <a ui-sref="tasks.view({taskId: task._id})" class="list-group-item">
+                    <h4 class="list-group-item-heading" ng-bind="task.title"></h4>
+                    <h5 class="list-group-item-heading" ng-bind="task.status"></h5>
+
+                    <p class="list-group-item-text" ng-bind="task.content"></p>
+                </a>
+            </div>
+        </td>
+        <td>
+            <div ng-drop="true" ng-drop-success="onDropComplete($data,$event)"></div>
+        </td>
+        <td></td>
+        <td></td>
+
+    </tr>
+    </tbody>
+    </table>
+
+
+    <div class="list-group">
+        <div ng-repeat="task in tasks" class="list-group-item">
+
+            <div class="pull-right" ng-show="authentication.user._id == task.user._id">
+                <a class="btn btn-primary" ui-sref="tasks.view({taskId: task._id})">
+                    <i class="glyphicon glyphicon-zoom-in"></i>
+                </a>
+                <a class="btn btn-primary" ui-sref="tasks.edit({taskId: task._id})">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-primary" ng-click="removeById( {taskId: task._id} );">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </div>
+
+            <small class="list-group-item-text">
+                Posted on
+                <span ng-bind="task.created | date:'mediumDate'"></span>
+                by
+                <span ng-bind="task.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" ng-bind="task.title"></h4>
+            <h4 class="list-group-item-heading" ng-bind="task.status"></h4>
+            <h4 class="list-group-item-heading" ng-bind="task.backlog"></h4>
+
+            <p class="list-group-item-text" ng-bind="task.content"></p>
+        </div>
+    </div>
+
+    <div class="alert alert-warning text-center" ng-if="tasks.$resolved && !tasks.length">
+        No tasks yet, why don't you <a ui-sref="tasks.create">create one</a>?
+    </div>
+</section>

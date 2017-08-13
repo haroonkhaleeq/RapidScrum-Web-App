@@ -1,0 +1,93 @@
+<section ng-controller="ProjectsController" ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Project</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="projectForm" class="form-horizontal" ng-submit="update(projectForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="title">Title</label>
+                    <input name="title" type="text" ng-model="project.title" id="title" class="form-control"
+                           placeholder="Title" required>
+
+                    <div ng-messages="projectForm.title.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Project title is required.</p>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label for="status">Status</label>
+                    <!--<input name="status" type="text" ng-model="project.status" id="status" class="form-control" placeholder="Status" required>-->
+
+
+                    <select name="status" ng-model="project.status" id="status" class="form-control">
+                        <option value="0">Select Status</option>
+                        <option value="1">Planned</option>
+                        <option value="2">In Progress</option>
+                        <option value="3">On Hold</option>
+                        <option value="4">Finished</option>
+                    </select>
+
+
+                    <div ng-messages="projectForm.status.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Project status is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" show-errors>
+                    <div class="col-md-6">
+                        <label for="startDate">Start Date</label>
+
+                        <p class="input-group">
+                            <input id="startDate" name="startDate" type="text" class="form-control"
+                                   datepicker-popup="{{format}}" ng-model="project.startDate" is-open="popup1.opened"
+                                   min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <div class="col-md-6">
+                        <label for="endDate">End Date</label>
+
+                        <p class="input-group">
+                            <input id="endDate" name="endDate" type="text" class="form-control"
+                                   datepicker-popup="{{format}}" ng-model="project.endDate" is-open="popup2.opened"
+                                   min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2()"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea name="content" ng-model="project.content" id="content" class="form-control" cols="30"
+                              rows="10" placeholder="Content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectTeams">Select Teams</label>
+
+                    <div id="projectTeams" ng-model="project.teams" ng-dropdown-multiselect=""
+                         translation-texts="teamscustomTexts" options="teamsdata" selected-model="teamsmodel"
+                         extra-settings="teamssettings"></div>
+
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+                <div ng-show="error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

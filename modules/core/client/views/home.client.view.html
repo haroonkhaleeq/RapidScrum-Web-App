@@ -1,0 +1,153 @@
+<style>
+    .thumbnail {
+    padding:0px;
+}
+.panel {
+    position:relative;
+}
+.panel>.panel-heading:after,.panel>.panel-heading:before{
+    position:absolute;
+    top:11px;left:-16px;
+    right:100%;
+    width:0;
+    height:0;
+    display:block;
+    content:" ";
+    border-color:transparent;
+    border-style:solid solid outset;
+    pointer-events:none;
+}
+.panel>.panel-heading:after{
+    border-width:7px;
+    border-right-color:#f7f7f7;
+    margin-top:1px;
+    margin-left:2px;
+}
+.panel>.panel-heading:before{
+    border-right-color:#ddd;
+    border-width:8px;
+}</style>
+<section ng-show="authentication.user" ng-controller="HomeController">
+    <h1>Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default ">
+                <div class="panel-heading"><b>What You are Working on</b></div>
+                <div class="panel-body ">
+                    Your Tasks here..
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default ">
+                <div class="panel-heading"><b>Your Team / Your Projects</b></div>
+                <div class="panel-body ">
+                    Your Tasks here..
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default ">
+                <div class="panel-heading"><b>Whats Happening</b></div>
+                <div class="panel-body ">
+                    Your Tasks here..
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<section ng-hide="authentication.user" ng-controller="HomeController">
+    <h1>Rapid Scrum</h1>
+
+
+
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Introduction</div>
+        <div class="panel-body">
+            <p>This project is developed as a requirement of the subject "Internet - Practical Course Telecooperation". This course was offered in winter semester 2015-2016 in Informatik department of TU Darmstadt. The main purpose of this course was to "Learn how to develop modern Web Applications". The project work has a team structure consisting of 3-5 members. Our team consists of 5 members. The genaral requirement of the project was to develop a web application for Managing Agile Projects, using MEAN (MongoDB, Express, Angular, NodeJS) Stack.</p>
+        </div>
+
+       
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Abbas Khan</strong> <span class="text-muted">comments about this project</span>
+                </div>
+                <div class="panel-body">
+                    Keeping in mind how important agile methodology and scrum process is in today's modern world software applications, our team has developed a comprehensive tool to manage your scrum based projects. If you ever need a tool for managing your scrum based project, then RapidScrum is the only complete and intuitive solution for you. I am sure this application will make your scrum project management easy and more fun. If you still feel you need any extra feature in RapidScrum, then don't forget to give us your feedback. We value our clients feedback ! We value our clients !!
+                    Abbas khan, The Scrum master
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Azmat Ali Khan</strong> <span class="text-muted">comments about this project</span>
+                </div>
+                <div class="panel-body">
+                    Scrum is an agile methodology that can be applied to nearly any project; however, the Scrum methodology is most commonly used in software development. The Scrum process is suited for projects with rapidly changing or highly emergent requirements. Scrum software development progresses via a series of iterations called sprints, which last from one to four weeks. The Scrum model suggests each sprint begins with a brief planning meeting and concludes with a review. These are the basics of Scrum project management.
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+    </div><!-- /row -->
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Haroon Khaleeq (C.T.O Rapidscrum)</strong> <span class="text-muted">comments about this project</span>
+                </div>
+                <div class="panel-body">
+                    I want to say it loud and clear. If you are looking for a fast, effective, high-quality and user friendly project management scrum tool then you came to the right place. You need Rapidscrum. It provides all the basic functionalities of a scrum based project management application. We are open to modify our application based on your tailored requirements which will suits your company better. We will be happy to hear from you and our sales team will get in contact with you
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Mudassir Khan</strong> <span class="text-muted">comments about this project</span>
+                </div>
+                <div class="panel-body">
+                    As a developer what I can say is rapidscrum is really very flexible and adaptable to your specific needs. Mudassir - Proud Developer
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+    </div><!-- /row -->
+
+
+</section>
+

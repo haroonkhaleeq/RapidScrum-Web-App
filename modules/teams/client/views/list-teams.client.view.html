@@ -1,0 +1,40 @@
+<section ng-controller="TeamsController" ng-init="find()">
+    <div class="page-header">
+        <h1>Teams</h1>
+    </div>
+    <div class="list-group">
+        <div ng-repeat="team in teams" class="list-group-item">
+
+
+            <div class="pull-right" ng-show="authentication.user._id == team.user._id">
+                <a class="btn btn-primary" ui-sref="teams.view({teamId: team._id})">
+                    <i class="glyphicon glyphicon-zoom-in"></i>
+                </a>
+                <a class="btn btn-primary" ui-sref="teams.edit({teamId: team._id})">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-primary" ng-click="remove();">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </div>
+
+
+            <small class="list-group-item-text">
+                Posted on
+                <span ng-bind="team.created | date:'mediumDate'"></span>
+                by
+                <span ng-bind="team.user.displayName"></span>
+            </small>
+
+            <h4 class="list-group-item-heading" ng-bind="team.title"></h4>
+
+
+            <p class="list-group-item-text" ng-bind="team.content"></p>
+
+
+        </div>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="teams.$resolved && !teams.length">
+        No teams yet, why don't you <a ui-sref="teams.create">create one</a>?
+    </div>
+</section>

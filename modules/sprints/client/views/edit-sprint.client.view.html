@@ -1,0 +1,91 @@
+<section ng-controller="SprintsController" ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Sprint</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="sprintForm" class="form-horizontal" ng-submit="update(sprintForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="title">Title</label>
+                    <input name="title" type="text" ng-model="sprint.title" id="title" class="form-control"
+                           placeholder="Title" required>
+
+                    <div ng-messages="sprintForm.title.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Sprint title is required.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group" show-errors>
+                    <div class="col-md-6">
+                        <label for="start_date">Start Date</label>
+
+                        <p class="input-group">
+                            <input id="start_date" name="start_date" type="text" class="form-control"
+                                   datepicker-popup="{{format}}" ng-model="sprint.start_date" is-open="popup1.opened"
+                                   min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <div class="col-md-6">
+                        <label for="end_date">End Date</label>
+
+                        <p class="input-group">
+                            <input id="end_date" name="end_date" type="text" class="form-control"
+                                   datepicker-popup="{{format}}" ng-model="sprint.end_date" is-open="popup2.opened"
+                                   min-date="minDate" max-date="maxDate" datepicker-options="dateOptions"
+                                   ng-required="true" close-text="Close" alt-input-formats="altInputFormats"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open2()"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group" show-errors>
+                    <label for="project_id">Project</label>
+                    <select name="project_id" ng-model="sprint.project_id._id" id="project_id"
+                            ng-change="onProjectChange(sprint.project_id._id)" class="form-control"
+                            placeholder="Project" required>
+                        <option ng-repeat="project in projectsdata  track by project.id" value="{{project.id}}">
+                            {{project.label}}
+                        </option>
+                    </select>
+
+                    <div ng-messages="sprintForm.type.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Sprint project is required.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="backlog_items">Select Backlog Items</label>
+
+                    <div id="backlog_items" ng-model="sprint.backlog_items" ng-dropdown-multiselect=""
+                         translation-texts="customTexts" options="backlogsdata" selected-model="backlogsmodel"
+                         extra-settings="backlog_settings"></div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="content">Description</label>
+                    <textarea name="content" ng-model="sprint.content" id="content" class="form-control" cols="30"
+                              rows="10" placeholder="Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+                <div ng-show="error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

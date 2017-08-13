@@ -1,0 +1,40 @@
+<section ng-controller="SprintsController" ng-init="findOne()">
+    <div class="page-header">
+        <h1 ng-bind="sprint.title"></h1>
+    </div>
+    <div class="pull-right" ng-show="authentication.user._id == sprint.user._id">
+        <a class="btn btn-primary" ui-sref="sprints.edit({sprintId: sprint._id})">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <small>
+        <em class="text-muted">
+            Posted on
+            <span ng-bind="sprint.created | date:'mediumDate'"></span>
+            by
+            <span ng-bind="sprint.user.displayName"></span>
+        </em>
+    </small>
+
+    </br></br>
+    Start Date: <p class="lead" ng-bind="sprint.start_date"></p>
+    End Date: <p class="lead" ng-bind="sprint.end_date"></p>
+    Project: <a ng-href="projects/{{project_id._id}}">
+    <p class="lead" ng-bind="sprint.project_id.title"></p>
+</a>
+
+    Sprint Backlog:
+
+    <div>
+        <p ng-repeat="item in backlog_links" class="list-group-item">
+            <a ng-bind="item.label" ng-href="backlogs/{{item.id}}"></a>
+        </p>
+    </div>
+
+    </br>
+    Description: <p class="lead" ng-bind="sprint.content"></p>
+
+</section>

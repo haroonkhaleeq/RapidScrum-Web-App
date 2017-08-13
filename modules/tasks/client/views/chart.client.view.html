@@ -1,0 +1,48 @@
+<style>
+
+</style>
+<section ng-controller="TasksController as mycont" ng-init="findChart()">
+    <div class="page-header">
+        <h1>BurnDown Chart</h1>
+
+
+        <div class="form-group float-right">
+            <label for="sprint_id">Sprints</label>
+
+
+            <select class="form-control" ng-change="sprintChangeChart(sprint_id)" name="sprint_id" ng-model="sprint_id"
+                    id="sprint_id" ng-options="c.id as c.label for c in sprintsdata track by c.id" required>
+                <option value="">- Select Sprint -</option>
+            </select>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class='col-md-12 contentWrapper ng-cloak'>
+        <div class='content'>
+            <div class="row-fluid">
+
+
+                <div class="my-chart">
+                    <linechart data="data" options="options"></linechart>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!--<div class="navbar-inner">
+        <div class="container form-inline" style="text-align: center;">
+            <div class="btn btn-droppable" ng-repeat="item in list5" data-drop="true" ng-model='list5' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list5])'}"  jqyoui-droppable="{index: {{$index}}}">
+                <div class="btn btn-info btn-draggable" data-drag="{{item.drag}}" data-jqyoui-options="{revert: 'invalid'}" ng-model="list5" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.title">{{item.title}}</div>
+            </div>
+        </div>
+    </div>
+    -->
+
+
+</section>

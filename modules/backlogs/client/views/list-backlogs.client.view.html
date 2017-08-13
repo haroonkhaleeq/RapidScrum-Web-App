@@ -1,0 +1,38 @@
+<section ng-controller="BacklogsController" ng-init="find()">
+    <div class="page-header">
+        <h1>Backlogs</h1>
+    </div>
+    <div class="list-group">
+        <div ng-repeat="backlog in backlogs" class="list-group-item">
+
+            <div class="pull-right" ng-show="authentication.user._id == backlog.user._id">
+                <a class="btn btn-primary" ui-sref="backlogs.view({backlogId: backlog._id})">
+                    <i class="glyphicon glyphicon-zoom-in"></i>
+                </a>
+                <a class="btn btn-primary" ui-sref="backlogs.edit({backlogId: backlog._id})">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-primary" ng-click="removeById( {backlogId: backlog._id} );">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </div>
+
+            <small class="list-group-item-text">
+                Posted on
+                <span ng-bind="backlog.created | date:'mediumDate'"></span>
+                by
+                <span ng-bind="backlog.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" ng-bind="backlog.title"></h4>
+
+            <p class="list-group-item-text" ng-bind="backlog.description"></p>
+            <h4 class="list-group-item-heading" ng-bind="backlog.project"></h4>
+            <h4 class="list-group-item-heading" ng-bind="backlog.type"></h4>
+            <h4 class="list-group-item-heading" ng-bind="backlog.priority"></h4>
+            <h4 class="list-group-item-heading" ng-bind="backlog.status"></h4>
+        </div>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="backlogs.$resolved && !backlogs.length">
+        No backlogs yet, why don't you <a ui-sref="backlogs.create">create one</a>?
+    </div>
+</section>

@@ -1,0 +1,79 @@
+<section ng-controller="TasksController" ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Task</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="taskForm" class="form-horizontal" ng-submit="update(taskForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="backlog_id">Backlog item</label>
+
+                    <select name="backlog_id" ng-model="task.backlog_id" id="backlog_id" class="form-control"
+                            placeholder="Backlog Item" ng-change="onBacklogChange(backlog_id)" required>
+                        <option ng-repeat="backlog in backlogsdata  track by backlog.id" value="{{backlog.id}}">
+                            {{backlog.label}}
+                        </option>
+                    </select>
+
+                    <div ng-messages="backlogForm.type.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Task backlog item is required.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group" show-errors>
+                    <label for="title">Title</label>
+                    <input name="title" type="text" ng-model="task.title" id="title" class="form-control"
+                           placeholder="Title" required>
+
+                    <div ng-messages="taskForm.title.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Task title is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" show-errors>
+                    <label for="status">Status</label>
+                    <select name="Status" ng-model="task.status" id="status" class="form-control" placeholder="Status"
+                            required>
+                        <option value="todo">To DO</option>
+                        <option value="inprogress" selected="true">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+
+                    <div ng-messages="taskForm.status.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Task status is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" show-errors>
+                    <label for="estimate">Estimate (in days)</label>
+                    <input name="estimate" type="text" ng-model="task.estimate" id="estimate" class="form-control"
+                           placeholder="Estimate" required>
+
+                    <div ng-messages="taskForm.estimate.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Task estimate is required.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="assigned_user">Assigned Developers</label>
+                    <div id="assigned_user" ng-model="task.assigned_user" ng-dropdown-multiselect="" translation-texts="customTexts" options="assigned_user" selected-model="dev_models" extra-settings="dev_settings"></div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="content">Description</label>
+                    <textarea name="content" ng-model="task.content" id="content" class="form-control" cols="30"
+                              rows="10" placeholder="Content"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+                <div ng-show="error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
